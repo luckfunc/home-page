@@ -67,6 +67,7 @@
     body {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       min-height: 100vh;
       min-height: 100dvh;
       padding: 2rem;
@@ -77,17 +78,15 @@
       max-width: 1200px;
       margin: 0 auto;
       background: #0d1117;
-      border: 1px solid #30363d;
+      border: 1px solid #21262d;
       border-radius: 6px;
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.85);
-      overflow: hidden;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
     .terminal-header {
-      background: #161b22;
+      background: transparent;
       padding: 0.8rem 1rem;
       border-bottom: 1px solid #21262d;
       display: flex;
@@ -98,6 +97,18 @@
     .terminal-title {
       color: #7d8590;
       font-size: 0.9rem;
+    }
+    
+    .terminal-title::before {
+      content: '●';
+      color: #28ca42;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
     }
 
     .terminal-content {
@@ -233,7 +244,7 @@
       text-align: center;
       padding: 1rem;
       border-top: 1px solid #21262d;
-      background: #161b22;
+      background: transparent;
       color: #7d8590;
       font-size: 0.8rem;
     }
@@ -257,13 +268,13 @@
         padding-top: max(2rem, env(safe-area-inset-top));
         min-height: 100vh;
         min-height: 100dvh;
+        justify-content: flex-start;
       }
 
       .terminal-container {
-        border-radius: 0;
         border-left: none;
         border-right: none;
-        box-shadow: none;
+        border-radius: 0;
       }
 
       .terminal-content {
@@ -312,7 +323,7 @@
       }
 
       .footer {
-        padding: 1rem;
+        padding: 1rem 0;
         padding-bottom: max(1rem, calc(1rem + env(safe-area-inset-bottom)));
       }
 
@@ -329,7 +340,6 @@
         font-size: 1.2rem;
         font-weight: bold;
         margin-bottom: 1rem;
-        text-align: center;
       }
     }
 
@@ -348,7 +358,6 @@
 
       .terminal-container {
         border: none;
-        border-radius: 0;
       }
 
       .container-left,
@@ -374,7 +383,7 @@
 <body>
   <div class='terminal-container'>
     <div class='terminal-header'>
-      <div class='terminal-title'>luck@terminal: ~</div>
+      <div class='terminal-title'>luck@terminal: ~ • coding...</div>
     </div>
 
     <div class='terminal-content'>
