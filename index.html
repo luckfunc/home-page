@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <title>Luck Func - Frontend Developer & Open Source Enthusiast</title>
+  <meta name='description' content='Luck Func - Passionate frontend developer specializing in React, TypeScript, and modern web technologies. Explore my projects, blog, and open source contributions.' />
+  <meta name='keywords' content='Luck Func, frontend developer, React, TypeScript, JavaScript, web development, open source, GitHub, programming, Vue.js, Node.js' />
+  <meta name='author' content='Luck Func' />
+  <meta name='robots' content='index, follow' />
+  <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
+
+  <!-- Open Graph / Facebook -->
+  <meta property='og:type' content='website' />
+  <meta property='og:url' content='https://luckfunc.com' />
+  <meta property='og:title' content='Luck Func - Frontend Developer & Open Source Enthusiast' />
+  <meta property='og:description' content='Passionate frontend developer specializing in React, TypeScript, and modern web technologies. Explore my projects, blog, and open source contributions.' />
+  <meta property='og:image' content='https://luckfunc.com/og-image.jpg' />
+  <meta property='og:site_name' content='Luck Func' />
+
+  <!-- Twitter -->
+  <meta name='twitter:card' content='summary_large_image' />
+  <meta name='twitter:url' content='https://luckfunc.com' />
+  <meta name='twitter:title' content='Luck Func - Frontend Developer & Open Source Enthusiast' />
+  <meta name='twitter:description' content='Passionate frontend developer specializing in React, TypeScript, and modern web technologies. Explore my projects, blog, and open source contributions.' />
+  <meta name='twitter:image' content='https://luckfunc.com/og-image.jpg' />
+
+  <!-- Canonical URL -->
+  <link rel='canonical' href='https://luckfunc.com' />
+
+  <!-- Structured Data -->
+  <script type='application/ld+json'>
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Luck Func",
+    "url": "https://luckfunc.com",
+    "sameAs": [
+      "https://github.com/luckfunc",
+      "https://blog.luckfunc.com"
+    ],
+    "jobTitle": "Frontend Developer",
+    "description": "Passionate frontend developer specializing in React, TypeScript, and modern web technologies",
+    "knowsAbout": ["React", "TypeScript", "JavaScript", "Vue.js", "Node.js", "Web Development", "Open Source"],
+    "image": "https://luckfunc.com/profile.jpg"
+  }
+  </script>
+  <link href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap' rel='stylesheet' />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100vh;
+      min-height: 100dvh; /* 动态视口高度 */
+      background: #0d1117;
+      color: #c9d1d9;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 2rem;
+      padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    }
+
+    .terminal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-header {
+      background: #161b22;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .terminal-title {
+      color: #7d8590;
+      font-size: 0.9rem;
+    }
+
+    .terminal-content {
+      display: flex;
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
+    }
+
+    .container-left {
+      flex: 1;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .prompt {
+      color: #58a6ff;
+      font-weight: 700;
+      display: inline;
+    }
+
+    .command {
+      color: #c9d1d9;
+      margin-left: 0.5rem;
+    }
+
+    .output {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ascii-art {
+      color: #58a6ff;
+      font-size: 0.8rem;
+      line-height: 1.2;
+      margin: 1rem 0;
+      white-space: pre;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      color: #c9d1d9;
+    }
+
+    .section {
+      margin: 2rem 0;
+    }
+
+    .section-title {
+      color: #f0883e;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: #8b949e;
+    }
+
+    a {
+      color: #58a6ff;
+      text-decoration: none;
+      position: relative;
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+    }
+
+    a:hover {
+      background: rgba(88, 166, 255, 0.1);
+      text-decoration: underline;
+    }
+
+    .container-right {
+      flex: 0 0 400px;
+      background: #161b22;
+      border-left: 1px solid #21262d;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .code-animation {
+      width: 100%;
+      height: 300px;
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .code-line {
+      color: #7ee787;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: typewriter 4s infinite;
+    }
+
+    .code-line:nth-child(1) { animation-delay: 0s; }
+    .code-line:nth-child(2) { animation-delay: 0.8s; }
+    .code-line:nth-child(3) { animation-delay: 1.6s; }
+    .code-line:nth-child(4) { animation-delay: 2.4s; }
+    .code-line:nth-child(5) { animation-delay: 3.2s; }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1rem;
+      background: #c9d1d9;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes typewriter {
+      0%, 15% { opacity: 0; }
+      16%, 75% { opacity: 1; }
+      76%, 100% { opacity: 0; }
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      border-top: 1px solid #21262d;
+      background: #161b22;
+      color: #7d8590;
+      font-size: 0.8rem;
+    }
+
+    .footer a {
+      color: #7d8590;
+      padding: 0;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      background: none;
+      text-decoration: underline;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+        padding-top: max(2rem, env(safe-area-inset-top));
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      .terminal-container {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+      }
+
+      .terminal-content {
+        flex-direction: column;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container-left {
+        padding: 1rem;
+      }
+
+      .container-right {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid #21262d;
+        padding: 1rem;
+        min-height: 200px;
+      }
+
+      .code-animation {
+        height: 180px;
+        padding: 0.8rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .ascii-art {
+        font-size: 0.6rem;
+        margin: 0.5rem 0;
+      }
+
+      .section {
+        margin: 1rem 0;
+      }
+
+      .output {
+        margin-left: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .terminal-header {
+        padding: 0.6rem 1rem;
+      }
+
+      .footer {
+        padding: 1rem;
+        padding-bottom: max(1rem, calc(1rem + env(safe-area-inset-bottom)));
+      }
+
+      /* 隐藏部分ASCII艺术在小屏幕上 */
+      .ascii-art {
+        display: none;
+      }
+
+      /* 移动端显示简化版本 */
+      .container-left::before {
+        content: "> LUCK FUNC";
+        display: block;
+        color: #58a6ff;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        padding: 0;
+        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+        padding-top: max(1rem, env(safe-area-inset-top));
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .terminal-container {
+        border: none;
+        border-radius: 0;
+      }
+
+      .container-left,
+      .container-right {
+        padding: 0.8rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class='terminal-container'>
+    <div class='terminal-header'>
+      <div class='terminal-title'>luck@terminal: ~</div>
+    </div>
+
+    <div class='terminal-content'>
+      <div class='container-left'>
+        <div class='ascii-art'>
+ ██▓     █    ██  ▄████▄   ██ ▄█▀    █████▒██   ██▓ ███▄    █  ▄████▄
+▓██▒     ██  ▓██▒▒██▀ ▀█   ██▄█▒   ▓██   ▒ ▒██  ██▒ ██ ▀█   █ ▒██▀ ▀█
+▒██░    ▓██  ▒██░▒▓█    ▄ ▓███▄░   ▒████ ░  ▒██ ██░▓██  ▀█ ██▒▒▓█    ▄
+▒██░    ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄   ░▓█▒  ░  ░ ▐██▓░▓██▒  ▐▌██▒▒▓▓▄ ▄██▒
+░██████▒▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄  ░▒█░     ░ ██▒▓░▒██░   ▓██░▒ ▓███▀ ░
+░ ▒░▓  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ░      ██▒▒▒ ░ ▒░   ▒ ▒ ░ ░▒ ▒  ░
+        </div>
+
+        <div class='section'>
+          <div class='prompt'>$</div><span class='command'>whoami</span>
+          <div class='output'>
+            <h1>Luck Func</h1>
+            <p> I am a developer passionate about frontend development. You can find me on my GitHub profile.</p>
+          </div>
+        </div>
+
+        <div class='section'>
+          <div class='prompt'>$</div><span class='command'>ls -la ~/social</span>
+          <div class='output'>
+            <div class='section-title'>Connect With Me</div>
+            <p>
+              🚀 GitHub: <a href='https://github.com/luckfunc' target='_blank' rel='noopener noreferrer'>github.com/luckfunc</a> - Open source projects and contributions
+            </p>
+          </div>
+        </div>
+
+        <div class='section'>
+          <div class='prompt'>$</div><span class='command'>cat ~/blog/README.md</span>
+          <div class='output'>
+            <div class='section-title'>Technical Blog</div>
+            <p>
+              📝 <a href='https://blog.luckfunc.com' target='_blank' rel='noopener noreferrer'>blog.luckfunc.com</a> -
+              Frontend tutorials, React best practices, and web development insights
+            </p>
+          </div>
+        </div>
+
+        <div class='section'>
+          <div class='prompt'>$</div><span class='command'>ls ~/projects/</span>
+          <div class='output'>
+            <div class='section-title'>Featured Open Source Projects</div>
+            <p>
+              🎨 <a href='https://github.com/luckfunc/react-color-avatar' target='_blank' rel='noopener noreferrer'>React Color Avatar</a> -
+              Customizable avatar generator built with React and TypeScript |
+              <a href='https://avatar.luckfunc.com' target='_blank' rel='noopener noreferrer'>Live Demo</a>
+            </p>
+            <p>
+              🛠️ <a href='https://json.const.site' target='_blank' rel='noopener noreferrer'>JSON Formatter & Validator</a> -
+              Beautiful online JSON formatting and validation tool with syntax highlighting
+            </p>
+            <p>
+              💡 More projects available on my <a href='https://github.com/luckfunc' target='_blank' rel='noopener noreferrer'>GitHub profile</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class='container-right'>
+        <div class='code-animation'>
+          <div class='code-line'>console.log('Hello World!');</div>
+          <div class='code-line'>const dev = new Developer();</div>
+          <div class='code-line'>dev.skills = ['React', 'TS'];</div>
+          <div class='code-line'>dev.passion = 'Frontend';</div>
+          <div class='code-line'>dev.build();<span class='cursor'></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class='footer'>
+      <a href='https://beian.miit.gov.cn/'>备案信息：陕ICP备2022014014号-2</a>
+    </div>
+  </div>
+</body>
+
+</html>
