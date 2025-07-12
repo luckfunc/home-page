@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-home:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Deploy to server
+      
+      - name: Deploy main site to server
         uses: cross-the-world/scp-pipeline@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -20,3 +20,18 @@ jobs:
           connect_timeout: 10s
           local: 'index.html'
           remote: ${{ secrets.REMOTE_TARGET }}
+
+  deploy-const:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy const.site to server
+        uses: cross-the-world/scp-pipeline@master
+        with:
+          host: ${{ secrets.CONST_REMOTE_HOST }}
+          user: ${{ secrets.CONST_REMOTE_NAME }}
+          pass: ${{ secrets.CONST_REMOTE_PASS }}
+          connect_timeout: 10s
+          local: 'const-site.html'
+          remote: ${{ secrets.CONST_REMOTE_TARGET }}

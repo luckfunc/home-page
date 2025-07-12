@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>const.site - Constants in Code & Life</title>
+  <meta name="description" content="Exploring the beauty of constants in programming and life. Simple, unchanging, reliable.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+      background: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+
+    /* Dark theme (default) */
+    :root {
+      --bg-color: #0a0a0a;
+      --text-color: #e0e0e0;
+      --logo-color: #c9d1d9;
+      --subtitle-color: #7d8590;
+      --button-bg: #21262d;
+      --button-text: #c9d1d9;
+    }
+
+    /* Light theme */
+    body.light {
+      --bg-color: #ffffff;
+      --text-color: #24292f;
+      --logo-color: #24292f;
+      --subtitle-color: #656d76;
+      --button-bg: #f6f8fa;
+      --button-text: #24292f;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .logo {
+      font-size: 3rem;
+      color: var(--logo-color);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--subtitle-color);
+      margin-bottom: 2rem;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: transparent;
+      color: var(--button-text);
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 2.5rem;
+      }
+      
+      body {
+        padding: 1rem;
+      }
+
+      .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem;
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  
+  <div class="container">
+    <div class="logo">const.site</div>
+    <div class="subtitle">Learning & Building</div>
+
+    <p style="color: var(--text-color); font-size: 1.2rem; margin: 2rem 0;">
+      I'm learning Node.js recently!
+    </p>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const button = document.querySelector('.theme-toggle');
+      
+      if (body.classList.contains('light')) {
+        body.classList.remove('light');
+        button.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.classList.add('light');
+        button.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // 恢复保存的主题
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light');
+      document.querySelector('.theme-toggle').textContent = '☀️';
+    }
+  </script>
+</body>
+
+</html>
