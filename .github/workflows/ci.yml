@@ -17,5 +17,5 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_NAME }}
           password: ${{ secrets.REMOTE_PASS }}
-          source: 'index.html,i18n.js'
+          source: 'index.html,i18n.js,favicon.ico'
           target: ${{ secrets.REMOTE_TARGET }}
