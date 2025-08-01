@@ -12,11 +12,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Deploy main site to server
-        uses: cross-the-world/scp-pipeline@master
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.REMOTE_HOST }}
-          user: ${{ secrets.REMOTE_NAME }}
-          pass: ${{ secrets.REMOTE_PASS }}
-          connect_timeout: 10s
-          local: 'index.html'
-          remote: ${{ secrets.REMOTE_TARGET }}
+          username: ${{ secrets.REMOTE_NAME }}
+          password: ${{ secrets.REMOTE_PASS }}
+          source: 'index.html'
+          target: ${{ secrets.REMOTE_TARGET }}
