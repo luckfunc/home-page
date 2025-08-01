@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-CN'>
 
 <head>
   <meta charset='utf-8' />
@@ -43,424 +43,369 @@
     "jobTitle": "Frontend Developer",
     "description": "Passionate frontend developer specializing in React, TypeScript, and modern web technologies",
     "knowsAbout": ["React", "TypeScript", "JavaScript", "Vue.js", "Node.js", "Web Development", "Open Source"],
-    "image": "https://luckfunc.com/profile.jpg"
+    "image": "https://avatars.githubusercontent.com/u/85545304?v=4",
   }
   </script>
-  <link href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap' rel='stylesheet' />
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: serif !important;
     }
 
-    html, body {
-      min-height: 100vh;
-      min-height: 100dvh; /* 动态视口高度 */
-      background: #0d1117;
-      color: #c9d1d9;
-      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-      font-size: 16px;
-      overflow-x: hidden;
+    .skip-link {
+      position: absolute;
+      height: 40px;
+      top: -40px;
+      left: 6px;
+      background: #000;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 100;
+    }
+    .skip-link:hover {
+      color: white;
+    }
+    
+    .skip-link:focus { 
+      top: 6px; 
     }
 
     body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      background: #fff;
+      color: #111;
+      font-size: 16px;
+      line-height: 1.6;
       min-height: 100vh;
-      min-height: 100dvh;
-      padding: 2rem;
-      padding-bottom: max(2rem, env(safe-area-inset-bottom));
     }
 
-    .terminal-container {
-      max-width: 1200px;
+    .container {
+      max-width: 1400px;
       margin: 0 auto;
-      background: #0d1117;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      padding: 16px 32px;
     }
 
-    .terminal-header {
-      background: transparent;
-      padding: 0.8rem 1rem;
-      border-bottom: 1px solid #21262d;
+    /* Header */
+    .header {
+      margin-bottom: 12px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+    }
+
+    .header-content {
+      text-align: center;
+    }
+
+    .header-title {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 4px;
     }
 
-    .terminal-title {
-      color: #7d8590;
-      font-size: 0.9rem;
-    }
-    
-    .terminal-title::before {
-      content: '●';
-      color: #28ca42;
-      margin-right: 0.5rem;
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0.3; }
+    .logo {
+      height: 64px;
+      width: auto;
+      margin: 0 auto 8px;
+      display: block;
     }
 
-    .terminal-content {
-      display: flex;
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
+    .main-title {
+      font-size: 32px;
+      color: #000;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+      margin-bottom: 8px;
     }
 
-    .container-left {
-      flex: 1;
-      padding: 2rem;
-      line-height: 1.6;
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      letter-spacing: 0.05em;
+      font-weight: 500;
     }
 
-    .prompt {
-      color: #58a6ff;
-      font-weight: 700;
-      display: inline;
+    /* Intro */
+    .intro {
+      margin-bottom: 12px;
     }
 
-    .command {
-      color: #c9d1d9;
-      margin-left: 0.5rem;
+    .intro p {
+      font-size: 16px;
+      line-height: 1.4;
+      letter-spacing: 0.025em;
+      margin: 0;
     }
 
-    .output {
-      margin-left: 1.5rem;
-      margin-bottom: 1.5rem;
+    /* Three column layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
     }
 
-    .ascii-art {
-      color: #58a6ff;
-      font-size: 0.8rem;
-      line-height: 1.2;
-      margin: 1rem 0;
-      white-space: pre;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 1rem 0;
-      color: #c9d1d9;
-    }
-
+    /* Section styles */
     .section {
-      margin: 2rem 0;
+      margin-bottom: 8px;
     }
 
     .section-title {
-      color: #f0883e;
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+      letter-spacing: 0.025em;
     }
 
-    p {
-      margin-bottom: 1rem;
-      color: #8b949e;
+    .section-content {
+      margin: 0;
     }
 
+    /* Links */
     a {
-      color: #58a6ff;
+      color: #333;
       text-decoration: none;
-      position: relative;
       padding: 2px 4px;
       border-radius: 3px;
       transition: all 0.2s ease;
     }
 
     a:hover {
-      background: rgba(88, 166, 255, 0.1);
+      color: #000;
       text-decoration: underline;
     }
 
-    .container-right {
-      flex: 0 0 400px;
-      background: #161b22;
-      border-left: 1px solid #21262d;
-      padding: 2rem;
+    /* Project item */
+    .project-item {
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+
+    .project-header {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
     }
 
-    .code-animation {
-      width: 100%;
-      height: 300px;
-      background: #0d1117;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      padding: 1rem;
-      overflow: hidden;
-      position: relative;
+    .project-title {
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 0.025em;
     }
 
-    .code-line {
-      color: #7ee787;
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-      opacity: 0;
-      animation: typewriter 4s infinite;
+    .project-link {
+      font-size: 14px;
+      color: #666;
+      letter-spacing: 0.025em;
     }
 
-    .code-line:nth-child(1) { animation-delay: 0s; }
-    .code-line:nth-child(2) { animation-delay: 0.8s; }
-    .code-line:nth-child(3) { animation-delay: 1.6s; }
-    .code-line:nth-child(4) { animation-delay: 2.4s; }
-    .code-line:nth-child(5) { animation-delay: 3.2s; }
-
-    .cursor {
-      display: inline-block;
-      width: 8px;
-      height: 1rem;
-      background: #c9d1d9;
-      animation: blink 1s infinite;
+    .project-description {
+      font-size: 14px;
+      margin-bottom: 4px;
+      letter-spacing: 0.025em;
+      line-height: 1.3;
     }
 
-    @keyframes typewriter {
-      0%, 15% { opacity: 0; }
-      16%, 75% { opacity: 1; }
-      76%, 100% { opacity: 0; }
+    /* Special content blocks */
+    .highlight-box {
+      margin: 8px 0;
+      padding: 8px;
+      background: #f8f8f8;
+      border-left: 2px solid #999;
     }
 
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+    .highlight-box p {
+      font-size: 14px;
+      margin-bottom: 4px;
+      letter-spacing: 0.025em;
     }
 
+    .contact-links {
+      font-size: 14px;
+      letter-spacing: 0.025em;
+    }
+
+    .contact-links .separator {
+      color: #999;
+      margin: 0 4px;
+    }
+
+    /* Footer */
     .footer {
       text-align: center;
-      padding: 1rem;
-      border-top: 1px solid #21262d;
-      background: transparent;
-      color: #7d8590;
-      font-size: 0.8rem;
+      padding: 16px 0;
+      border-top: 1px solid #e5e5e5;
+      margin-top: 16px;
+      color: #666;
+      font-size: 13px;
     }
 
     .footer a {
-      color: #7d8590;
+      color: #666;
       padding: 0;
-      text-decoration: none;
     }
 
     .footer a:hover {
-      background: none;
       text-decoration: underline;
     }
 
-    /* 移动端适配 */
-    @media (max-width: 768px) {
-      body {
-        padding: 0.5rem;
-        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-        padding-top: max(2rem, env(safe-area-inset-top));
-        min-height: 100vh;
-        min-height: 100dvh;
-        justify-content: flex-start;
+    /* Mobile responsive */
+    @media (max-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
-
-      .terminal-container {
-        border-left: none;
-        border-right: none;
-        border-radius: 0;
+      
+      .container {
+        padding: 8px 16px;
       }
-
-      .terminal-content {
-        flex-direction: column;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+      
+      .main-title {
+        font-size: 24px;
       }
-
-      .container-left {
-        padding: 1rem;
-      }
-
-      .container-right {
-        flex: none;
-        border-left: none;
-        border-top: 1px solid #21262d;
-        padding: 1rem;
-        min-height: 200px;
-      }
-
-      .code-animation {
-        height: 180px;
-        padding: 0.8rem;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .ascii-art {
-        font-size: 0.6rem;
-        margin: 0.5rem 0;
-      }
-
-      .section {
-        margin: 1rem 0;
-      }
-
-      .output {
-        margin-left: 0.8rem;
-        margin-bottom: 1rem;
-      }
-
-      .terminal-header {
-        padding: 0.6rem 1rem;
-      }
-
-      .footer {
-        padding: 1rem 0;
-        padding-bottom: max(1rem, calc(1rem + env(safe-area-inset-bottom)));
-      }
-
-      /* 隐藏部分ASCII艺术在小屏幕上 */
-      .ascii-art {
-        display: none;
-      }
-
-      /* 移动端显示简化版本 */
-      .container-left::before {
-        content: "> LUCK FUNC";
-        display: block;
-        color: #58a6ff;
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
+      
+      .intro p {
+        font-size: 15px;
       }
     }
 
     @media (max-width: 480px) {
-      html {
-        scroll-behavior: smooth;
+      .container {
+        padding: 4px 8px;
       }
-
-      body {
-        padding: 0;
-        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-        padding-top: max(1rem, env(safe-area-inset-top));
-        overflow-x: hidden;
-        overflow-y: auto;
+      
+      .main-title {
+        font-size: 20px;
       }
-
-      .terminal-container {
-        border: none;
-      }
-
-      .container-left,
-      .container-right {
-        padding: 0.8rem;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
+      
       .section-title {
-        font-size: 1rem;
+        font-size: 16px;
       }
-
-      p {
-        font-size: 0.9rem;
+      
+      .project-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .project-link {
+        margin-top: 4px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class='terminal-container'>
-    <div class='terminal-header'>
-      <div class='terminal-title'>luck@terminal: ~ • coding...</div>
-    </div>
+  <a href="#main-content" class="skip-link" data-zh="跳转到主要内容" data-en="Skip to main content">跳转到主要内容</a>
 
-    <div class='terminal-content'>
-      <div class='container-left'>
-        <div class='ascii-art'>
- ██▓     █    ██  ▄████▄   ██ ▄█▀    █████▒██   ██▓ ███▄    █  ▄████▄
-▓██▒     ██  ▓██▒▒██▀ ▀█   ██▄█▒   ▓██   ▒ ▒██  ██▒ ██ ▀█   █ ▒██▀ ▀█
-▒██░    ▓██  ▒██░▒▓█    ▄ ▓███▄░   ▒████ ░  ▒██ ██░▓██  ▀█ ██▒▒▓█    ▄
-▒██░    ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄   ░▓█▒  ░  ░ ▐██▓░▓██▒  ▐▌██▒▒▓▓▄ ▄██▒
-░██████▒▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄  ░▒█░     ░ ██▒▓░▒██░   ▓██░▒ ▓███▀ ░
-░ ▒░▓  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ░      ██▒▒▒ ░ ▒░   ▒ ▒ ░ ░▒ ▒  ░
-        </div>
-
-        <div class='section'>
-          <div class='prompt'>$</div><span class='command'>whoami</span>
-          <div class='output'>
-            <h1>Luck Func</h1>
-            <p> I am a developer passionate about frontend development. You can find me on my GitHub profile.</p>
+  <div class="container">
+    <main id="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <div class="header-title">
+            <div>
+              <div class="main-title">Luck Func</div>
+            </div>
+          </div>
+          <div>
+            <p class="subtitle" data-zh="前端开发者" data-en="Frontend Developer">前端开发者</p>
           </div>
         </div>
+      </header>
 
-        <div class='section'>
-          <div class='prompt'>$</div><span class='command'>ls -la ~/social</span>
-          <div class='output'>
-            <div class='section-title'>Connect With Me</div>
-            <p>
-              🚀 GitHub: <a href='https://github.com/luckfunc' target='_blank' rel='noopener noreferrer'>github.com/luckfunc</a> - Open source projects and contributions
-            </p>
-          </div>
+      <!-- Intro -->
+      <section class="intro">
+        <p data-zh="我是一名热衷于前端开发的开发者。你可以在我的 GitHub 个人资料中找到我。" data-en="I am a developer passionate about frontend development. You can find me on my GitHub profile.">我是一名热衷于前端开发的开发者。你可以在我的 GitHub 个人资料中找到我。</p>
+      </section>
+
+      <!-- Three Column Layout -->
+      <div class="content-grid">
+        <!-- Left Column -->
+        <div>
+          <!-- Connect With Me -->
+          <section class="section">
+            <h2 class="section-title" data-zh="联系我" data-en="Connect With Me">联系我</h2>
+            <div class="section-content">
+              <p class="project-description">
+                <span data-zh="🚀 GitHub: " data-en="🚀 GitHub: ">🚀 GitHub: </span><a href='https://github.com/luckfunc' target='_blank' rel='noopener noreferrer'>github.com/luckfunc</a><span data-zh=" - 开源项目与贡献" data-en=" - Open source projects and contributions"> - 开源项目与贡献</span>
+              </p>
+            </div>
+          </section>
         </div>
 
-        <div class='section'>
-          <div class='prompt'>$</div><span class='command'>cat ~/blog/README.md</span>
-          <div class='output'>
-            <div class='section-title'>Technical Blog</div>
-            <p>
-              📝 <a href='https://blog.luckfunc.com' target='_blank' rel='noopener noreferrer'>blog.luckfunc.com</a> -
-              Frontend tutorials, React best practices, and web development insights
-            </p>
-          </div>
+        <!-- Middle Column -->
+        <div>
+          <!-- Technical Blog -->
+          <section class="section">
+            <h2 class="section-title" data-zh="技术博客" data-en="Technical Blog">技术博客</h2>
+            <div class="section-content">
+              <p class="project-description">
+                <span data-zh="📝 " data-en="📝 ">📝 </span><a href='https://blog.luckfunc.com' target='_blank' rel='noopener noreferrer'>blog.luckfunc.com</a><span data-zh=" - 写给自己的前端博客" data-en=" - A frontend blog for myself"> - 写给自己的前端博客</span>
+              </p>
+            </div>
+          </section>
         </div>
 
-        <div class='section'>
-          <div class='prompt'>$</div><span class='command'>ls ~/projects/</span>
-          <div class='output'>
-            <div class='section-title'>Featured Open Source Projects</div>
-            <p>
-              🎨 <a href='https://github.com/luckfunc/react-color-avatar' target='_blank' rel='noopener noreferrer'>React Color Avatar</a> -
-              Customizable avatar generator built with React and TypeScript |
-              <a href='https://avatar.luckfunc.com' target='_blank' rel='noopener noreferrer'>Live Demo</a>
-            </p>
-            <p>
-              🛠️ <a href='https://json.const.site' target='_blank' rel='noopener noreferrer'>JSON Formatter & Validator</a> -
-              Beautiful online JSON formatting and validation tool with syntax highlighting
-            </p>
-            <p>
-              💡 More projects available on my <a href='https://github.com/luckfunc' target='_blank' rel='noopener noreferrer'>GitHub profile</a>
-            </p>
-          </div>
+        <!-- Right Column -->
+        <div>
+          <!-- Featured Open Source Projects -->
+          <section class="section">
+            <h2 class="section-title" data-zh="我的开源项目" data-en="My Open Source Projects">我的开源项目</h2>
+            <div class="section-content">
+              <div class="project-item">
+                <div class="project-header">
+                  <h3 class="project-title">React Color Avatar</h3>
+                  <a href="https://github.com/luckfunc/react-color-avatar" target="_blank" class="project-link">GitHub →</a>
+                </div>
+                <p class="project-description">
+                  <span data-zh="使用 React 和 TypeScript 构建的头像生成器" data-en="Avatar generator built with React and TypeScript">使用 React 和 TypeScript 构建的头像生成器</span>
+                  <a href='https://avatar.luckfunc.com' target='_blank' rel='noopener noreferrer' data-zh="在线演示" data-en="Live Demo">在线演示</a>
+                </p>
+              </div>
+              
+              <div class="project-item">
+                <div class="project-header">
+                  <h3 class="project-title">JSON Formatter & Validator</h3>
+                  <a href="https://json.const.site" target="_blank" class="project-link" data-zh="在线演示 →" data-en="Live Demo →">在线演示 →</a>
+                </div>
+                <p class="project-description" data-zh="美观的在线 JSON 格式化和验证工具，带语法高亮" data-en="Beautiful online JSON formatting and validation tool with syntax highlighting">
+                  美观的在线 JSON 格式化和验证工具，带语法高亮
+                </p>
+              </div>
+              
+              <p class="project-description">
+                <span data-zh="💡 更多项目请访问我的 " data-en="💡 More projects available on my ">💡 更多项目请访问我的 </span><a href='https://github.com/luckfunc' target='_blank' rel='noopener noreferrer' data-zh="GitHub 个人资料" data-en="GitHub profile">GitHub 个人资料</a>
+              </p>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section class="section">
+            <h3 class="section-title" data-zh="关注我" data-en="Follow Me">关注我</h3>
+            <div class="contact-links">
+              <a href="https://github.com/luckfunc" target="_blank">GitHub</a>
+              <span class="separator">·</span>
+              <a href="https://blog.luckfunc.com" target="_blank" data-zh="博客" data-en="Blog">博客</a>
+              <span class="separator">·</span>
+              <!-- Language Toggle Button -->
+              <a href="#" id="lang-toggle" aria-label="切换语言" data-zh="EN" data-en="中文">EN</a>
+            </div>
+          </section>
         </div>
       </div>
+    </main>
 
-      <div class='container-right'>
-        <div class='code-animation'>
-          <div class='code-line'>console.log('Hello World!');</div>
-          <div class='code-line'>const dev = new Developer();</div>
-          <div class='code-line'>dev.skills = ['React', 'TS'];</div>
-          <div class='code-line'>dev.passion = 'Frontend';</div>
-          <div class='code-line'>dev.build();<span class='cursor'></span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class='footer'>
+    <footer class="footer">
       <a href='https://beian.miit.gov.cn/'>备案信息：陕ICP备2022014014号-2</a>
-    </div>
+    </footer>
   </div>
+  <script src="i18n.js"></script>
 </body>
 
 </html>
