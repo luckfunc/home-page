@@ -90,7 +90,7 @@
       .logo {
         font-size: 2.5rem;
       }
-      
+
       body {
         padding: 1rem;
       }
@@ -107,7 +107,7 @@
 
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  
+
   <div class="container">
     <div class="logo">const.site</div>
     <div class="subtitle">Learning & Building</div>
@@ -121,7 +121,7 @@
     function toggleTheme() {
       const body = document.body;
       const button = document.querySelector('.theme-toggle');
-      
+
       if (body.classList.contains('light')) {
         body.classList.remove('light');
         button.textContent = '🌙';
