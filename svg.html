@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG预览工具</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 150px);
+        }
+
+        .input-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #3498db;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-upload {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #3498db;
+            background-color: #f8f9fa;
+        }
+
+        .upload-area.dragover {
+            border-color: #3498db;
+            background-color: #e3f2fd;
+        }
+
+        .upload-text {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .textarea-container {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .svg-input {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            resize: none;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .svg-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                    radial-gradient(circle at 25px 25px, #ddd 1px, transparent 1px),
+                    radial-gradient(circle at 75px 75px, #ddd 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            position: relative;
+            overflow: auto;
+        }
+
+        .svg-preview {
+            max-width: 100%;
+            max-height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .controls {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 14px;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .size-input {
+            width: 80px;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .color-input {
+            width: 40px;
+            height: 30px;
+            padding: 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .error-message {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin: 10px 20px;
+            font-size: 14px;
+        }
+
+        .info-panel {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .info-item {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .control-group {
+                justify-content: space-between;
+            }
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🎨 SVG预览工具</h1>
+        <p>在线编辑和预览SVG图标，支持实时预览、颜色调整和尺寸控制</p>
+    </div>
+
+    <div class="main-content">
+        <!-- 输入区域 -->
+        <div class="input-section">
+            <div class="section-header">
+                <span>📝 SVG代码编辑器</span>
+                <div class="control-group">
+                    <button class="btn btn-secondary" onclick="clearInput()">清空</button>
+                    <button class="btn btn-primary" onclick="loadExample()">示例</button>
+                </div>
+            </div>
+
+            <div class="file-upload">
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                    <div class="upload-text">📁 拖拽SVG文件到这里或点击选择文件</div>
+                    <small style="color: #999;">支持 .svg 格式文件</small>
+                    <input type="file" id="fileInput" class="file-input" accept=".svg" onchange="handleFileSelect(event)">
+                </div>
+            </div>
+
+            <div class="textarea-container">
+                    <textarea
+                            class="svg-input"
+                            id="svgInput"
+                            placeholder="在这里粘贴或编辑你的SVG代码..."
+                            oninput="updatePreview()"
+                    ></textarea>
+            </div>
+        </div>
+
+        <!-- 预览区域 -->
+        <div class="preview-section">
+            <div class="section-header">
+                <span>👀 实时预览</span>
+                <div class="control-group">
+                    <button class="btn btn-primary" onclick="downloadSVG()">下载SVG</button>
+                </div>
+            </div>
+
+            <div class="preview-container" id="previewContainer">
+                <div class="svg-preview" id="svgPreview">
+                    <div style="text-align: center; color: #999; font-size: 18px; padding: 50px;">
+                        <div style="font-size: 48px; margin-bottom: 10px;">🖼️</div>
+                        在左侧输入SVG代码以开始预览
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>宽度:</label>
+                    <input type="number" class="size-input" id="widthInput" value="200" min="10" max="1000" onchange="updateSize()">
+                    <span>px</span>
+                </div>
+                <div class="control-group">
+                    <label>高度:</label>
+                    <input type="number" class="size-input" id="heightInput" value="200" min="10" max="1000" onchange="updateSize()">
+                    <span>px</span>
+                </div>
+                <div class="control-group">
+                    <label>填充:</label>
+                    <input type="color" class="color-input" id="fillColor" value="#333333" onchange="updateColors()">
+                </div>
+                <div class="control-group">
+                    <label>描边:</label>
+                    <input type="color" class="color-input" id="strokeColor" value="#000000" onchange="updateColors()">
+                </div>
+                <div class="control-group">
+                    <button class="btn btn-secondary" onclick="resetControls()">重置</button>
+                </div>
+            </div>
+
+            <div class="info-panel" id="infoPanel">
+                <div class="info-item"><strong>状态:</strong> 等待输入SVG代码</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentSVG = '';
+
+    // 更新预览
+    function updatePreview() {
+        const input = document.getElementById('svgInput');
+        const preview = document.getElementById('svgPreview');
+        const infoPanel = document.getElementById('infoPanel');
+
+        currentSVG = input.value.trim();
+
+        if (!currentSVG) {
+            preview.innerHTML = `
+                    <div style="text-align: center; color: #999; font-size: 18px; padding: 50px;">
+                        <div style="font-size: 48px; margin-bottom: 10px;">🖼️</div>
+                        在左侧输入SVG代码以开始预览
+                    </div>
+                `;
+            infoPanel.innerHTML = '<div class="info-item"><strong>状态:</strong> 等待输入SVG代码</div>';
+            return;
+        }
+
+        try {
+            // 验证SVG格式
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(currentSVG, 'image/svg+xml');
+            const parseError = doc.querySelector('parsererror');
+
+            if (parseError) {
+                throw new Error('SVG格式错误');
+            }
+
+            // 获取SVG信息
+            const svgElement = doc.querySelector('svg');
+            const viewBox = svgElement.getAttribute('viewBox');
+            const width = svgElement.getAttribute('width');
+            const height = svgElement.getAttribute('height');
+
+            // 显示预览
+            preview.innerHTML = currentSVG;
+
+            // 更新信息面板
+            let info = '<div class="info-item"><strong>状态:</strong> <span style="color: #27ae60;">✓ 预览成功</span></div>';
+            if (viewBox) info += `<div class="info-item"><strong>ViewBox:</strong> ${viewBox}</div>`;
+            if (width && height) info += `<div class="info-item"><strong>原始尺寸:</strong> ${width} × ${height}</div>`;
+
+            infoPanel.innerHTML = info;
+
+            // 应用当前设置
+            updateSize();
+            updateColors();
+
+            // 移除错误消息
+            const errorMsg = document.querySelector('.error-message');
+            if (errorMsg) errorMsg.remove();
+
+        } catch (error) {
+            // 显示错误
+            preview.innerHTML = `
+                    <div style="text-align: center; color: #e74c3c; font-size: 16px; padding: 50px;">
+                        <div style="font-size: 48px; margin-bottom: 10px;">❌</div>
+                        SVG格式错误<br>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+
+            infoPanel.innerHTML = '<div class="info-item"><strong>状态:</strong> <span style="color: #e74c3c;">✗ 格式错误</span></div>';
+        }
+    }
+
+    // 更新尺寸
+    function updateSize() {
+        const preview = document.getElementById('svgPreview');
+        const svgElement = preview.querySelector('svg');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+
+        if (svgElement) {
+            svgElement.style.width = widthInput.value + 'px';
+            svgElement.style.height = heightInput.value + 'px';
+        }
+    }
+
+    // 更新颜色
+    function updateColors() {
+        const preview = document.getElementById('svgPreview');
+        const svgElement = preview.querySelector('svg');
+        const fillColor = document.getElementById('fillColor').value;
+        const strokeColor = document.getElementById('strokeColor').value;
+
+        if (svgElement) {
+            // 更新所有path元素
+            const paths = svgElement.querySelectorAll('path');
+            paths.forEach(path => {
+                if (path.hasAttribute('fill') && path.getAttribute('fill') !== 'none') {
+                    path.setAttribute('fill', fillColor);
+                }
+                if (path.hasAttribute('stroke') && path.getAttribute('stroke') !== 'none') {
+                    path.setAttribute('stroke', strokeColor);
+                }
+            });
+
+            // 更新其他元素
+            const elements = svgElement.querySelectorAll('circle, rect, ellipse, polygon, polyline, line');
+            elements.forEach(element => {
+                if (element.hasAttribute('fill') && element.getAttribute('fill') !== 'none') {
+                    element.setAttribute('fill', fillColor);
+                }
+                if (element.hasAttribute('stroke') && element.getAttribute('stroke') !== 'none') {
+                    element.setAttribute('stroke', strokeColor);
+                }
+            });
+        }
+    }
+
+    // 重置控制
+    function resetControls() {
+        document.getElementById('widthInput').value = 200;
+        document.getElementById('heightInput').value = 200;
+        document.getElementById('fillColor').value = '#333333';
+        document.getElementById('strokeColor').value = '#000000';
+        updatePreview();
+    }
+
+    // 清空输入
+    function clearInput() {
+        document.getElementById('svgInput').value = '';
+        updatePreview();
+    }
+
+    // 加载示例
+    function loadExample() {
+        const exampleSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="#ff6b6b"/>
+    <circle cx="12" cy="12" r="3" fill="none" stroke="#4ecdc4" stroke-width="2"/>
+</svg>`;
+        document.getElementById('svgInput').value = exampleSVG;
+        updatePreview();
+    }
+
+    // 下载SVG
+    function downloadSVG() {
+        if (!currentSVG) {
+            alert('请先输入SVG代码');
+            return;
+        }
+
+        const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'preview.svg';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // 文件处理
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file && file.type === 'image/svg+xml') {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('svgInput').value = e.target.result;
+                updatePreview();
+            };
+            reader.readAsText(file);
+        } else {
+            alert('请选择SVG格式的文件');
+        }
+    }
+
+    // 拖拽处理
+    function handleDragOver(event) {
+        event.preventDefault();
+        event.currentTarget.classList.add('dragover');
+    }
+
+    function handleDragLeave(event) {
+        event.currentTarget.classList.remove('dragover');
+    }
+
+    function handleDrop(event) {
+        event.preventDefault();
+        event.currentTarget.classList.remove('dragover');
+
+        const files = event.dataTransfer.files;
+        if (files.length > 0 && files[0].type === 'image/svg+xml') {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('svgInput').value = e.target.result;
+                updatePreview();
+            };
+            reader.readAsText(files[0]);
+        }
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        updatePreview();
+    });
+</script>
+</body>
+</html>
