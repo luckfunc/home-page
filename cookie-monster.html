@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cookie Monster Color Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      :root {
+        --cookie-monster-blue: #0062ad;
+        --cream-background: #fbf0dc;
+        --text-dark: #000;
+        --text-light: #f0f8ff;
+        --card-radius: 32px;
+        font-size: 14px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: var(--cookie-monster-blue);
+        color: var(--text-light);
+        width: 100%;
+      }
+
+      .page {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        gap: 16px;
+      }
+
+      .card {
+        width: min(458px, 100%);
+        background-color: var(--cream-background);
+        border-radius: 0;
+        border: none;
+        outline: 3px solid rgba(255, 255, 255, 0.65);
+        outline-offset: -3px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 40px 80px rgba(0, 26, 60, 0.55);
+      }
+
+      .monster {
+				display: flex;
+        height: 432px;
+				padding: 56px 18px;
+        align-items: center;
+        justify-content: center;
+				background-color: var(--cookie-monster-blue);
+      }
+
+      .eyes {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .eye {
+        width: 204px;
+        height: 204px;
+        border-radius: 50%;
+        background-color: var(--cream-background);
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .pupil {
+        position: absolute;
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background-color: var(--text-dark);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform 120ms ease-out;
+      }
+
+      .legend {
+				display: flex;
+        padding: 18px;
+        flex-direction: column;
+        gap: 16px;
+        color: var(--text-dark);
+      }
+
+      .hello {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #5e594e;
+      }
+
+      .color-picker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .color-picker input[type="color"] {
+        width: 48px;
+        height: 32px;
+        border: 2px solid #d6c6ab;
+        border-radius: 10px;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+        border-radius: 8px;
+      }
+
+      .color-picker input[type="color"]::-webkit-color-swatch {
+        border: none;
+        border-radius: 8px;
+      }
+
+      .color-code {
+        margin: 0;
+        font-size: clamp(32px, 9vw, 64px);
+        font-weight: 700;
+        line-height: 1.05;
+      }
+
+      .title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .subtitle {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .credits {
+        text-align: center;
+        font-size: 10px;
+        line-height: 1.4;
+        color: var(--text-light);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .credits a {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      @media (max-width: 520px) {
+        .page {
+          padding: 0 calc((100% - 364px) / 2);
+        }
+        .monster {
+					width: 364px;
+          padding: 36px 12px;
+          height: auto;
+        }
+
+        .eye {
+          width: 160px;
+          height: 160px;
+        }
+
+        .pupil {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="card">
+        <section class="monster" aria-label="Cookie Monster eyes">
+          <div class="eyes">
+            <div class="eye" data-eye data-origin="left">
+              <div class="pupil"></div>
+            </div>
+            <div class="eye" data-eye data-origin="right">
+              <div class="pupil"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="legend" aria-label="Color Reference">
+          <p class="hello">Hello World!</p>
+          <div class="color-picker">
+            <label for="colorPicker">Pick a color</label>
+            <input
+              id="colorPicker"
+              type="color"
+              value="#0062AD"
+              aria-label="Choose Cookie Monster color"
+            >
+          </div>
+          <p class="color-code" data-color-code>#0062AD</p>
+          <p class="title">Cookie Monster</p>
+          <p class="subtitle">Sesame Street</p>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="./cookie-monster.js"></script>
+  </body>
+</html>
+
+
+
